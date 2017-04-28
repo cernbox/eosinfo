@@ -1,6 +1,12 @@
 # Eos Info
 Place this app in **owncloud/apps/**
 
+This app adds a tab to the detailed side view that contains EOS information.
+The information exposed currently is:
+
+* EOS path
+* XROOTD path
+
 ## Building the app
 
 The app can be built by using the provided Makefile by running:
