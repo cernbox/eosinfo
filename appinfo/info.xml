@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<info>
+    <id>eosinfo</id>
+    <name>Eos Info</name>
+    <description>Adds a new tab in the detail view for EOS information</description>
+    <licence>AGPL</licence>
+    <author>Hugo Gonzalez Labrador (CERN)</author>
+    <version>0.0.1</version>
+    <namespace>EosInfo</namespace>
+    <category>other</category>
+    <dependencies>
+        <owncloud min-version="9.0" />
+    </dependencies>
+</info>
