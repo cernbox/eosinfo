@@ -12,7 +12,7 @@
 	 */
 	OCA.EosInfo.FilesPlugin = {
 		ignoreLists: [
-			'files_trashbin',
+			'trashbin',
 			'files.public'
 		],
 
