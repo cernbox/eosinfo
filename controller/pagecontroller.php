@@ -33,13 +33,15 @@ class PageController extends Controller {
 	 * @NoAdminRequired
 	 */
 	public function getInfo($path) {
-		$path = 'files/' . trim($path, '/');
-		$entry = $this->instanceManager->get($this->userId, $path);
+		$userFolder = \OC::$server->getUserFolder($this->userId);
+		$node = $userFolder->get($path);
+		$stat = $node->stat();
+		//$entry = $this->instanceManager->get($this->userId, $path);
 
 		// the Backbone view does not like dotted attributes, so we change them to dashed.
 		$map = [];
 		$map['eos-instance'] = $this->instanceManager->getCurrentInstance()->getMgmUrl();
-		$map['eos-file'] = $entry['eos.file'];
+		$map['eos-file'] = $stat['eos.file'];
 
 		return new DataResponse($map);
 	}
