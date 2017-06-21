@@ -9,22 +9,13 @@
  */
 
 (function(OC, OCA) {
-	/*
 	var TEMPLATE =
 		'<div class="loading hidden" style="height: 50px"></div>' +
-		"{{#if attributes.name}}" +
-		"<div class='content hidden'>{{attributes.name}}</p></div>" +
-			"<ul>{{#each attributes}}<li>{{@key}}={{this}}</li> {{/each}}</ul>" +
-		"{{/if}}";
-	*/
-	var TEMPLATE =
-		'<div class="loading hidden" style="height: 50px"></div>' +
-		"{{#if attributes.name}}" +
-		"<div class='content hidden'>{{attributes.eos}}</p></div>" +
+		"{{#if eos-file}}" +
 		"<div><p>EOS Location</p></div>" +
-		"<div><input readonly type='text' value='{{attributes.eos-file}}'></input></div>" +
+		"<div><input readonly type='text' value='{{eos-file}}'></input></div>" +
 		"<div><p>XROOTD Location</p></div>" +
-		"<div><input readonly type='text' value='{{attributes.eos-instance}}{{attributes.eos-file}}'></input></div>" +
+		"<div><input readonly type='text' value='{{eos-instance}}{{eos-file}}'></input></div>" +
 		"{{/if}}";
 
 
@@ -36,6 +27,7 @@
 		className: 'tab eosInfoTabView',
 		
 		model: null,
+		fileInfo: null,
 
 		initialize: function() {
 			OCA.Files.DetailTabView.prototype.initialize.apply(this, arguments);
@@ -54,11 +46,11 @@
 		
 		setFileInfo: function(fileInfo) {
 			if (fileInfo) {
-				this.model = fileInfo;
+				this.fileInfo = fileInfo;
 				this.render();
 				this._loadEosInfo();
 			} else {
-				this.model = null;
+				this.fileInfo = null;
 				this.render();
 			}
 		},
@@ -77,13 +69,12 @@
 			this._toggleLoading(true);
 			var self = this;
 			var url = OC.generateUrl('/apps/eosinfo/getinfo');
-			var path = this.model.get('path') + '/' + this.model.get('name');
+			var path = this.fileInfo.get('path') + '/' + this.fileInfo.get('name');
 			var data = {'path': path};
 			$.post(url, data)
 			.success(function (response) {
-				self.model.set(response);
+				self.model = response;
 				self.render();
-				console.log(self.model);
 			})
 			.done(function() {
 				self._toggleLoading(false);
