@@ -33,7 +33,9 @@
 			.success(function (response) {
 				if(response['isreadonly'] === true) {
 					if(isReadOnlyNotificationAlreadyInPlace() === false) {
-						OC.Notification.showHtml("<b>CERNBox Service</b> is in <b>read-only</b> mode until the intervention is finished.</br>Creating, renaming or deleting files or shares is not possible");
+						var msg = "<b>The CERNBox web service is currently in read-only mode. Please check the <a href='https://cern.service-now.com/service-portal/ssb.do'>IT Status Board</a> for additional information.";
+						msg += "</br>Creating, renaming or deleting files or shares is not possible</b>";
+						OC.Notification.showHtml(msg);
 					}
 				} else {
 					hideNotification();
