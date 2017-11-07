@@ -19,5 +19,6 @@
 return [
     'routes' => [
 	   ['name' => 'page#get_info', 'url' => '/getinfo', 'verb' => 'POST'],
+	   ['name' => 'page#is_read_only', 'url' => '/isreadonly', 'verb' => 'GET'],
     ]
 ];

@@ -11,8 +11,8 @@
 
 namespace OCA\EosInfo\Controller;
 
+use OCP\Files\NotFoundException;
 use OCP\IRequest;
-use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Controller;
 
@@ -33,16 +33,26 @@ class PageController extends Controller {
 	 * @NoAdminRequired
 	 */
 	public function getInfo($path) {
+		return new DataResponse($this->getMap($path));
+	}
+
+	/**
+	 * @NoCSRFRequired
+	 * @PublicPage
+	 */
+	public function isReadOnly($path) {
+		return new DataResponse(["isreadonly" => $this->instanceManager->isReadOnly()]);
+	}
+
+	private function getMap($path) {
 		$userFolder = \OC::$server->getUserFolder($this->userId);
 		$node = $userFolder->get($path);
 		$stat = $node->stat();
-		//$entry = $this->instanceManager->get($this->userId, $path);
 
 		// the Backbone view does not like dotted attributes, so we change them to dashed.
 		$map = [];
 		$map['eos-instance'] = $this->instanceManager->getCurrentInstance()->getMgmUrl();
 		$map['eos-file'] = $stat['eos.file'];
-
-		return new DataResponse($map);
+		return $map;
 	}
 }
