@@ -14,8 +14,6 @@
 		"{{#if eos-file}}" +
 		"<div><p>EOS Location</p></div>" +
 		"<div><input readonly type='text' value='{{eos-file}}'></input></div>" +
-		"<div><p>XROOTD Location</p></div>" +
-		"<div><input readonly type='text' value='{{eos-instance}}{{eos-file}}'></input></div>" +
 		"{{/if}}";
 
 
